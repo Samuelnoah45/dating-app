@@ -19,14 +19,10 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   late PageController _pageController;
-  List<String> names = [
-    "💖 진지한 연애를 찾는 중",
-    "💖 전혀 안 함",
-    "💖 비흡연",
-    "💖 매일 1시간 이상",
-    "💖 만나는 걸 좋아함",
-    "NFP",
-  ];
+  // This widget is the home page of your application. It is stateful, meaning
+  // that it has a State object (defined below) that contains fields that affect
+  // how it looks.
+
   List<DatingData> datingDataList = [
     DatingData(
       name: "잭과분홍콩나물",
@@ -104,48 +100,73 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // The background color of the app
       backgroundColor: primaryBlack,
+
+      // The app bar of the app
       appBar: PreferredSize(
+          // The preferred size of the app bar
           preferredSize: const Size.fromHeight(100),
+          // The app bar itself
           child: Container(
+            // The padding of the app bar
             padding: const EdgeInsets.only(left: 16, right: 16, top: 40),
+            // The content of the app bar
             child: const Row(
+              // The children of the app bar
               children: [],
             ),
           )),
+
+      // The bottom navigation bar of the app
       bottomNavigationBar: Container(
+        // The color of the bottom navigation bar
         // color: primaryColor,
+        // The height of the bottom navigation bar
         // height: 60,
+        // The content of the bottom navigation bar
         child: const NavBar(),
       ),
       body: Container(
           child: Column(
         children: [
+          // The header of the app
           const Header(),
+          // The space between the header and the page view
           const SizedBox(height: 16),
+          // The page view of the app
           Expanded(
             child: PageView.builder(
+              // The controller of the page view
               controller: _pageController,
+              // The number of items in the page view
               itemCount: datingDataList.length,
+              // The callback that is called when the page index is changed
               onPageChanged: (index) {
                 setState(() {
+                  // Update the current page index
                   _pageIndex = index;
                 });
               },
+              // The callback that is called to build each item in the page view
               itemBuilder: (context, index) {
+                // The key of the card
                 GlobalKey cardKey = GlobalKey();
                 return GestureDetector(
+                  // The callback that is called when the card is tapped
                   onTapDown: (TapDownDetails details) {
+                    // The render box of the card
                     RenderBox? box = cardKey.currentContext!.findRenderObject()
                         as RenderBox?;
                     if (box != null) {
+                      // The local position of the tap
                       Offset localPosition =
                           box.globalToLocal(details.globalPosition);
 
-                      // Get the size of the card
+                      // The size of the card
                       Size cardSize = box.size;
 
-                      // Calculate the threshold values as a percentage of the card's width and height
+                      // The threshold values as a percentage of the card's width and height
                       double thresholdWidth =
                           cardSize.width * 0.3; // 30% of the card's width
                       double thresholdHeight =
@@ -154,6 +175,7 @@ class _HomeState extends State<Home> {
                       if (localPosition.dx < thresholdWidth &&
                           localPosition.dy < thresholdHeight &&
                           _pageIndex > 0) {
+                        // Tapped on the left-top corner of the card
                         _pageController.animateToPage(_pageIndex - 1,
                             duration: const Duration(milliseconds: 400),
                             curve: Curves.linear);
@@ -170,15 +192,20 @@ class _HomeState extends State<Home> {
                       }
                     }
                   },
+                  // The card itself
                   child: DatingCard(
+                    // The key of the card
                     key: cardKey,
+                    // The index of the card
                     index: index,
+                    // The data of the card
                     data: datingDataList[index],
                   ),
                 );
               },
             ),
           ),
+          // The space between the page view and the bottom navigation bar
           const SizedBox(height: 32),
         ],
       )),

@@ -20,6 +20,7 @@ class Dating extends StatelessWidget {
           Brightness.light, // Change status bar icons color
     ));
     return MaterialApp.router(
+      // Root widget of the app, sets the app title
       title: 'Dating',
       theme: ThemeData(
         textTheme: const TextTheme(

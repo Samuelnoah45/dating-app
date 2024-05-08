@@ -57,6 +57,7 @@ class _DatingCardState extends State<DatingCard> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        // Total likes of the dating card
                         Container(
                           constraints: const BoxConstraints(maxWidth: 100),
                           padding: const EdgeInsets.only(
@@ -76,10 +77,11 @@ class _DatingCardState extends State<DatingCard> {
                               const SizedBox(
                                 width: 6,
                               ),
-                              const Text("323,233")
+                              const Text("323,233"),
                             ],
                           ),
                         ),
+
                         const SizedBox(
                           height: 8,
                         ),

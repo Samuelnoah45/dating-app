@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:circular_bottom_navigation/tab_item.dart';
 import 'package:circular_bottom_navigation/circular_bottom_navigation.dart';
 
+/// Main NavBar component
 class NavBar extends StatefulWidget {
   const NavBar({super.key});
 
@@ -23,52 +24,61 @@ class _NavBarState extends State<NavBar> {
     return Stack(
       clipBehavior: Clip.none,
       children: [
+        // Painter for the NavBar
         CustomPaint(
           size: Size(MediaQuery.of(context).size.width, 70),
           painter: BNBCustomPainter(),
         ),
+
+        // Container for the inner shadow
         Positioned(
-            left: 177,
-            bottom: 28,
-            child: Container(
-              width: 59,
-              height: 59,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0Xff0E0D0D), width: 2),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.withOpacity(0.5),
-                    spreadRadius: -3,
-                    blurRadius: 7,
-                    offset: Offset(0, 1), // changes position of shadow
-                  ),
-                ],
-                gradient: const LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    Color(0Xff101010),
-                    Color(0Xff2F2F2F),
-                  ], // Add your desired colors
+          left: 177,
+          bottom: 28,
+          child: Container(
+            width: 59,
+            height: 59,
+            decoration: BoxDecoration(
+              border: Border.all(color: Color(0Xff0E0D0D), width: 2),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(0.5),
+                  spreadRadius: -3,
+                  blurRadius: 7,
+                  offset: Offset(0, 1), // changes position of shadow
                 ),
-                borderRadius: BorderRadius.circular(50),
+              ],
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [
+                  Color(0Xff101010),
+                  Color(0Xff2F2F2F),
+                ], // Add your desired colors
               ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SvgPicture.asset(
-                    'assets/icons/star2.svg',
-                    width: 20,
-                  ),
-                ],
-              ),
-            )),
+              borderRadius: BorderRadius.circular(50),
+            ),
+
+            // Row for the star icon
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                SvgPicture.asset(
+                  'assets/icons/star2.svg',
+                  width: 20,
+                ),
+              ],
+            ),
+          ),
+        ),
+
+        // Container for the bottom NavBar
         Container(
           padding: const EdgeInsets.only(left: 24, right: 24),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
+              // Row for the Home and Spot icons
               Row(
                 children: [
                   SizedBox(
@@ -112,6 +122,8 @@ class _NavBarState extends State<NavBar> {
                   ),
                 ],
               ),
+
+              // Row for the Chat and MyPage icons
               Row(
                 children: [
                   SizedBox(
@@ -163,10 +175,11 @@ class _NavBarState extends State<NavBar> {
   }
 }
 
+/// Painter class for the NavBar
 class BNBCustomPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    // TODO: implement paint
+    // Paint the NavBar with a black color
     Paint paint = Paint()
       ..color = Colors.black
       ..style = PaintingStyle.fill;
@@ -178,8 +191,8 @@ class BNBCustomPainter extends CustomPainter {
     path.lineTo(0, size.height);
     path.close();
     canvas.drawPath(path, paint);
-    // Draw the inner shadow
 
+    // Draw the inner shadow
     Paint borderPaint = Paint()
       ..color = navbarShadow // White color for the border
       ..style = PaintingStyle.stroke // Stroke style
